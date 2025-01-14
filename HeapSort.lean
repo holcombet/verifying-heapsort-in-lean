@@ -41,15 +41,6 @@ def isElemTree : Int -> Tree -> Prop
 | a, (Tree.Node b right left) => if a = b then True else isElemTree a right ∨ isElemTree a left
 
 
-
-theorem isElemTree_isRoot : ∀ (x y : Int), ∀ (tl tr : Tree), ∀ (_ : x = y), isElemTree x (Tree.Node y tl tr) := by
-  intros x y tl tr h
-  rw [isElemTree, if_pos h]
-  exact True.intro
-
-
--- theorem isElemTree_node : ∀ (x y a : Int), ∀ (tl tr : Tree), isElemTree a (Tree.)
-
 theorem isElemTree_singleton : ∀ (x z : Int), isElemTree z (Tree.Node x Tree.Nil Tree.Nil) → z = x := by simp [isElemTree]
 
 
@@ -63,26 +54,6 @@ theorem isElemTree_branch : ∀ (a b : Int), ∀  (tl tr : Tree), isElemTree a (
     rw [if_neg h_ab] at h
     exact Or.inr h
 
-theorem isElemTree_branch_rev : ∀ (a b : Int), ∀ (tl tr : Tree), (a = b ∨ isElemTree a tl ∨ isElemTree a tr) → isElemTree a (Tree.Node b tl tr) := by
-  intros a b tl tr h
-  rw [isElemTree]
-  by_cases ab : a = b
-  case pos =>
-    rw [if_pos ab]
-    exact True.intro
-  case neg =>
-    cases h with
-    | inl a_eq_b =>
-      rw [if_pos a_eq_b]
-      exact True.intro
-    | inr tl_or_tr =>
-      cases tl_or_tr with
-      | inl a_tl =>
-        rw [if_neg ab]
-        exact Or.inl a_tl
-      | inr a_tr =>
-        rw [if_neg ab]
-        exact Or.inr a_tr
 
 
 
@@ -357,19 +328,3 @@ theorem invariant : ∀ (x : Int), ∀ (t : Tree), heap t → heap (insert x t) 
             | inr h_atr =>
               have h_xtr := (And.right (And.right (And.right h))) a h_atr
               exact h_xtr
-
-
-theorem invariant_simple : ∀ (x : Int), ∀ (t : Tree), heap t → heap (insert x t) := by
-  intros x t h
-  induction t with
-  | Nil => exact heap_insert_nil x
-  | Node y tl tr h_tl h_tr =>
-    simp!
-    simp! at h
-    if x_le_y : x ≤ y then
-      have h2 := h_tl (And.left h)
-      rw [if_pos x_le_y]
-      exact ⟨ h2, ⟨ And.left (And.right h), ⟨ sorry , And.right (And.right (And.right h))⟩ ⟩⟩
-    else
-      rw [if_neg x_le_y]
-      exact ⟨ And.left h, ⟨ h_tr (And.left (And.right h)), ⟨And.left (And.right (And.right h)), sorry ⟩ ⟩ ⟩
