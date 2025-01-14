@@ -26,7 +26,7 @@ Assume: x $\le$ y
 >
 >> heap(R) ... by assumption 
 >
->> ($\forall$ (a $\in \Z$), a $\in$ insert(x, L) $\to$ a $\le$ y) \
+>> ($\forall$ (a $\in Z$), a $\in$ insert(x, L) $\to$ a $\le$ y) \
 >> Assume: a $\in$ insert(x, L) 
 >>> x = a $\lor$ a $\in$ L ... Proposition inInsert \
 >>> x = a  
