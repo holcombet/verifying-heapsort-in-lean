@@ -2,7 +2,78 @@
 
 This project aimed to verify the HeapSort algorithm using the Lean theorem prover. The [HeapSort source code](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/heapSort.hs) was translated from Haskell to Lean, and formally verified [in Lean](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/HeapSort.lean). 
 
+
 ## Semi-Formal Proof of the Invariant
+
+**Lemma 1:** if x $\in$ (a, L, R) then x = a $\lor$ x $\in$ L $\lor$ x $\in$ R
+
+**Lemma 2:** if x $\in$ t then x $\in$ insert(y, t)
+
+**Proposition inInsert:** if x $\in$ insert(y, t) then x = y or x $\in$ t
+
+Proof.
+
+> Assume: x $\in$ insert(y, t) \
+> Show: x = y $\lor$ x $\in$ t 
+>
+> Case: t = Nil \
+> insert(y, Nil) = (y, Nil, Nil) \
+> x $\in$ (y, Nil, Nil). \ 
+> x = y \
+> x = y $\lor$ x $\in$ t
+>
+>
+> Case: t = (a, L, R) \
+> IH1: x $\in$ insert(y, L) $\to$ x = y $\lor$ x $\in$ L \
+> IH2: x $\in$ insert(y, R) $\to$ x = y $\lor$ x $\in$ R 
+>
+> y $\le$ a or y $>$ a
+>
+>> Assume: y $\le$ a \
+>> insert(y, t) = (a, insert(y,L), R) \
+>> x $\in$ (a, insert(y, L), R) \
+>> x = a $\lor$ x $\in$ insert(y, L) $\lor$ x $\in$ R ... Lemma 1 
+>>> Assume: x = a \
+>>> x $\in$ t \
+>>> x = y $\lor$ x $\in$ t
+>> 
+>>> Assume: x $\in$ insert(y, L) \
+>>> x = y $\lor$ x $\in$ L ... IH1 \
+>>> x = y $\lor$ x $\in$ t
+>>
+>>> Assume: x $\in$ R \
+>>> x $\in$ insert(y, R) ... Lemma 2 \
+>>> x $\in$ y $\lor$ x $\in$ R ... IH2 \
+>>> x $\in$ y $\lor$ x $\in$ t
+>>
+>> x = y $\lor$ x $\in$ t
+>>
+>> Assume: y $>$ a\
+>> insert(y, t) = (a, L, insert(y, R)) \
+>> x $\in$ (a, L, insert(y, R)) \
+>> x = a $\lor$ x $\in$ L $\lor$ x $\in$ insert(y,R)
+>>> Assume: x = a \
+>>> x $\in$ t \
+>>> x = y $\lor$ x $\in$ t 
+>>
+>>> Assume: x $\in$ L \
+>>> x $\in$ insert(y, L) ... Lemma 2 \
+>>> x = y $\lor$ x $\in$ L ... IH1 \
+>>> x = y $\lor$ x $\in$ t
+>>
+>>> Assume: x $\in$ insert(y, R) \
+>>> x = y $\lor$ x $\in$ R ... IH2 \
+>>> x = y $\lor$ x $\in$ t 
+>>
+>> x = y $\lor$ x $\in$ t 
+>
+> x = y $\lor$ x $\in$ t
+
+QED
+
+
+
+### Lemma: Invariant
 
 Proof. 
 
