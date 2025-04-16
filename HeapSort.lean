@@ -114,7 +114,7 @@ theorem heap_double : ∀ (x y : Int), ∀ (_ : x ≤ y), heap (Tree.Node y (Tre
 def tree_insert_nil : ∀ (x : Int), insert x Tree.Nil = Tree.Node x Tree.Nil Tree.Nil := by simp [_root_.insert]
 
 -- insert x Tree.Nil is a heap
-def heap_insert_nil : ∀ (x : Int), heap (insert x Tree.Nil) := by
+theorem heap_insert_nil : ∀ (x : Int), heap (insert x Tree.Nil) := by
   intros x
   simp!
 
@@ -149,6 +149,10 @@ theorem heap_insert_singleton: ∀ (x y: Int), heap (insert x (Tree.Node y Tree.
           simp [isElemTree] at h
           rw [h]
           exact y_le_x
+
+
+
+
 
 
 
