@@ -1,6 +1,6 @@
 # HeapSort
 
-This project aimed to verify the HeapSort algorithm using the Lean theorem prover. The [HeapSort source code](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/heapSort.hs) was translated from Haskell to Lean, and formally verified [in Lean](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/HeapSort.lean). 
+This project aimed to verify the HeapSort algorithm using the Lean theorem prover. The [HeapSort source code](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/heapSort.hs) was translated from Haskell to Lean using a compiler developed for my Master's thesis ([hs-to-lean](https://github.com/holcombet/hs-to-lean)), and formally verified [in Lean](https://github.com/holcombet/verifying-heapsort-in-lean/blob/main/HeapSort.lean). 
 
 
 ## Semi-Formal Proof of the Invariant

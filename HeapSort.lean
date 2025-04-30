@@ -31,11 +31,6 @@ def heap1 := heapSort [5,2,9,3,1,7,0,6]
 -- isElem
 -----------------------------------------
 
-def isElem : Int -> List Int -> Prop
-| _, [] => False
-| a, b :: bs => if a = b then True else isElem a bs
-
-
 def isElemTree : Int -> Tree -> Prop
 | _ , Tree.Nil => False
 | a, (Tree.Node b right left) => if a = b then True else isElemTree a right ∨ isElemTree a left
@@ -73,13 +68,6 @@ theorem isElemTree_node_insert_left : ∀ (x a y : Int), ∀ (tl tr : Tree), isE
 ------------------------------
 -- Verification of HeapSort
 ------------------------------
-
--- Predicate: Sorted
-def sorted : List Int -> Prop
-| [] => True
-| [_] => True
-| (x :: y :: xs) => x ≤ y ∧ sorted (y :: xs)
-
 
 def heap : Tree -> Prop
 | Tree.Nil => True
